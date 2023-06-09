@@ -1,64 +1,105 @@
-import {LitElement, html} from 'lit';
+import { html, LitElement } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/all/lit-all.min.js';
 
-export class MyElement extends LitElement {
+// define the component
+
+export class EditableRepeatingSection extends LitElement {
+
+
+
+
   static properties = {
-    version: {},
-    name: {},
-    surname: {},
-    description: {}
+
+    who: { type: String },
+
   };
 
-  constructor() {
-    super();
-    this.version = 'STARTING';
-    this.name = '';
-    this.surname = '';
-    this.description = '';
+
+
+
+  // return a promise for contract changes.
+
+  static getMetaConfig() {
+
+    return {
+
+      controlName: 'Editable Repeating Section',
+
+      fallbackDisableSubmit: false,
+
+      version: '1.0',
+
+      properties: {
+
+        rsEditable: {
+
+          type: 'string',
+
+          title: 'Editable Repeating Section',
+
+          description: 'ID of the editable repeating section'
+
+        },
+
+        rsReadOnly: {
+
+          type: 'string',
+
+          title: 'Read Only Repeating Section',
+
+          description: 'ID of the read only repeating section'
+
+        }
+
+      }
+
+    };
+
   }
 
-  connectedCallback() {
-    super.connectedCallback();
-    this.copyValuesBetweenSections();
+
+
+
+  constructor() {
+
+    super();
+
   }
+
+
+
 
   render() {
-    return html`
-      <p>Welcome to the Lit tutorial!</p>
-      <p>This is the ${this.version} code.</p>
-      <label for="name">Name:</label>
-      <input id="name" type="text" .value=${this.name} @input=${this.updateName}>
-      <label for="surname">Surname:</label>
-      <input id="surname" type="text" .value=${this.surname} @input=${this.updateSurname}>
-      <label for="description">Description:</label>
-      <textarea id="description" .value=${this.description} @input=${this.updateDescription}></textarea>
-    `;
+
+    var numOfClicks = document.documentElement.querySelectorAll(`[formcontrolid="${this.rsReadOnly}"] .ntx-repeating-section-repeated-section`).length - 1;
+
+
+
+
+    for (var i = 0, j = numOfClicks; i < j; i++) { document.documentElement.querySelector(`[formcontrolid="${this.rsEditable}"] .btn-repeating-section-new-row`).click() }
+
+
+
+
+    var readOnlyTextShort = document.documentElement.querySelectorAll(`[formcontrolid="${this.rsReadOnly}"] input:not([type="checkbox"])`);
+
+    var editableRS = this.rsEditable;
+
+    readOnlyTextShort.forEach(function (input) { document.documentElement.querySelector(`[formcontrolid="${editableRS}"] [aria-label="${input.ariaLabel}"]`).value = input.value; })
+
+
+
+
+    return html`<span></span>`;
+
   }
 
-  updateName(event) {
-    this.name = event.target.value;
-  }
-
-  updateSurname(event) {
-    this.surname = event.target.value;
-  }
-
-  updateDescription(event) {
-    this.description = event.target.value;
-  }
-
-  copyValuesBetweenSections() {
-    var numOfClicks = document.documentElement.querySelectorAll('[formcontrolid="fc_1d2c3c8e8556462fb5107b35b9785e23"] .ntx-repeating-section-repeated-section').length - 1;
-
-    for (var i = 0, j = numOfClicks; i < j; i++) {
-      document.documentElement.querySelector('[formcontrolid="fc_f7edea3c7bbc474ba19424f8e5269e62"] .btn-repeating-section-new-row').click();
-    }
-
-    var readOnlyTextShort = document.documentElement.querySelectorAll('[formcontrolid="fc_1d2c3c8e8556462fb5107b35b9785e23"] input:not([type="checkbox"])');
-
-    readOnlyTextShort.forEach(function(input) {
-      document.documentElement.querySelector(`[formcontrolid="fc_f7edea3c7bbc474ba19424f8e5269e62"] [aria-label="${input.ariaLabel}"]`).value = input.value;
-    });
-  }
 }
 
-customElements.define('my-element', MyElement);
+
+
+
+// registering the web component
+
+const elementName = 'jaam-copy-repeating-section';
+
+customElements.define(elementName, EditableRepeatingSection);
