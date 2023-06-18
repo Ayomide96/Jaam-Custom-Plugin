@@ -30,5 +30,5 @@ export class EditableRepeatingSection extends LitElement {
       }
 }
 
-const elementName = 'jaam-repeat-section';
+const elementName = 'jaam-repat-section';
 customElements.define(elementName, EditableRepeatingSection);
