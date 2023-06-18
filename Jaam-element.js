@@ -16,7 +16,7 @@ export class EditableRepeatingSection extends LitElement {
 
       static getMetaConfig() {
         return {
-          controlName: 'Editable Repeating Section',
+          controlName: 'Ayo Test Section',
           fallbackDisableSubmit: false,
           version: '1.0',
           properties: {
