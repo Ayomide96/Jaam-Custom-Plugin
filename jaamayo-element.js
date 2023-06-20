@@ -8,7 +8,7 @@ export class EditableRepeatingSection extends LitElement {
     //return a promise for contract changes.
     static getMetaConfig() {
         return {
-          controlName: 'NACPlug',
+          controlName: 'NACPlug1',
           fallbackDisableSubmit: false,
           version: '1.0',
           properties: {
