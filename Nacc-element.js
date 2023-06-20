@@ -34,5 +34,5 @@ readOnlyTextShort.forEach(function (input) { document.documentElement.querySelec
       }
 }
 
-const elementName = 'jaam-Nac-Plugin';
+const elementName = 'jaam-Nacc-Plugin';
 customElements.define(elementName, EditableRepeatingSection);
